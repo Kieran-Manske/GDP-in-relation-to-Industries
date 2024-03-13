@@ -1,9 +1,11 @@
-import matplotlib.pyplot as plt 
-import pandas as pd 
-file = pd.read_excel('SAGDP2N_ALL_AREAS_1997_2022.xlsx') 
-x_axis = file['X values'] 
-y_axis = file['Y values'] 
-plt.bar(x_axis, y_axis, width=5) 
-plt.xlabel("X-Axis") 
-plt.ylabel("Y-Axis") 
-plt.show() 
+import pandas as pd
+import matplotlib.pyplot as plt
+file = pd.read_excel('SAGDP2N_ALL_AREAS_1997_2022_cleaned.xlsx') 
+
+#create a list of lists to store the data for every idustry in every state
+state_data = []
+for state in file['GeoName'].unique():
+    state_data.append(file['GeoName'] == state)
+    
+
+
