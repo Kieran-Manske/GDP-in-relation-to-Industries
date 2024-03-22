@@ -7,8 +7,9 @@ df = pd.read_excel("C:/Users/kmanske343/Documents/GitHub/GDP-in-relation-to-Indu
 df.columns = df.columns.str.strip()
 df['Description'] = df['Description'].str.strip()
 
-
-
+years_df = df.loc['Years':, '1997': '2022']
+#join years_df with df
+df = df.join(years_df)
 
 industries = df['Description'].unique()
 print(len(industries))
@@ -18,7 +19,6 @@ def state_of_choice(df, State):
     state_df = df.loc[df['GeoName'] == State]
     state_df = state_df.set_index('Description')
     return state_df
-
 
 
 print(state_of_choice(df, 'Alabama'))
