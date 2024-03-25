@@ -6,6 +6,7 @@ df = pd.read_excel("C:/Users/kmanske343/Documents/GitHub/GDP-in-relation-to-Indu
 
 df.columns = df.columns.str.strip()
 df['Description'] = df['Description'].str.strip()
+df['GeoName'] = df['GeoName'].str.strip()
 
 all_years =[x for x in range(1997, 2022)]
 
@@ -24,18 +25,14 @@ def state_of_choice(df, State):
     state_df = state_df.set_index('Description')
     return state_df
 
-print(state_of_choice(df, 'Alabama'))
+for state in df['GeoName'].unique():
+    if state == 'United States *':
+        continue
+    state_df = state_of_choice(df, state)
+    state_df.to_csv(f'{state}.csv')
+    print(f'{state} has been saved to a csv file')
 
-state_df = state_of_choice(df, 'Alabama')
 
 
-def plot_data(state_df, State, Industry):
-    state_df = state_df.loc[Industry]
-    state_df = state_df.iloc[2:]
-    print(state_df)
-    state_df.plot(kind = 'bar', xticks = all_years, y = 'Trade in millions',
-                  title = f'{Industry} in {State}',
-                  legend = False)
-    plt.show()
 
-plot_data(state_df, 'Alabama', 'Trade')
+#turn this dataframe into a text file csv
